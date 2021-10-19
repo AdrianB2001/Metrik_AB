@@ -42,7 +42,7 @@ public class Application extends Canvas implements MouseListener {
         Graphics g = getGraphics();
 
         if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
-            g.drawOval(e.getX(), e.getY(), 30, 30);
+            g.drawRect(e.getX(), e.getY(), 30, 30);
             count++;
         }
 
