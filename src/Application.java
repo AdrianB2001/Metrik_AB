@@ -46,6 +46,7 @@ public class Application extends Canvas implements MouseListener {
             count++;
         }
 
+
         if (count == 3) {
             g.clearRect(0,0, width, height);
             count = 0;
