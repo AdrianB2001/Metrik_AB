@@ -27,7 +27,7 @@ public class Application extends Canvas implements MouseListener {
         frame.add(application);
         menubuild(frame, application);
     }
-    
+
     public static void menubuild(Frame frame, Application application){
         MenuBar menu = new MenuBar();
         Menu program = new Menu("Program");
