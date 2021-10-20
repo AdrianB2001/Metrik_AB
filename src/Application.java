@@ -24,6 +24,41 @@ public class Application extends Canvas implements MouseListener {
         frame.setSize(application.width, application.height);
         frame.setVisible(true);
         frame.add(application);
+        menubuild(frame, application);
+    }
+
+    public static void menubuild(Frame frame, Application application){
+        MenuBar menu = new MenuBar();
+        Menu program = new Menu("Program");
+        Menu hintergrund = new Menu("Hintergrund");
+
+        MenuItem quit = new MenuItem("Quit");
+        quit.addActionListener(e -> System.exit(1));
+        program.add(quit);
+
+        MenuItem red = new MenuItem("Red");
+        red.addActionListener(e -> application.setBackground(Color.red));
+        hintergrund.add(red);
+
+        MenuItem blue = new MenuItem("Blue");
+        blue.addActionListener(e -> application.setBackground(Color.blue));
+        hintergrund.add(blue);
+
+        MenuItem green = new MenuItem("Green");
+        green.addActionListener(e -> application.setBackground(Color.green));
+        hintergrund.add(green);
+
+        MenuItem gray = new MenuItem("Gray");
+        gray.addActionListener(e -> application.setBackground(Color.gray));
+        hintergrund.add(gray);
+
+        MenuItem white = new MenuItem("White");
+        white.addActionListener(e -> application.setBackground(Color.white));
+        hintergrund.add(white);
+
+        menu.add(program);
+        menu.add(hintergrund);
+        frame.setMenuBar(menu);
     }
 
 
