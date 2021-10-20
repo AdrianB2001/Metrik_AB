@@ -1,7 +1,6 @@
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.geom.Ellipse2D;
 
 
 public class Application extends Canvas implements MouseListener {
@@ -28,21 +27,12 @@ public class Application extends Canvas implements MouseListener {
     }
 
 
-
-    @Override
-    public void paint (Graphics g) {
-        Ellipse2D circle = new Ellipse2D.Float(0, 0,
-                                                30, 30);
-        Graphics2D g2d = (Graphics2D) g;
-        //g2d.draw(circle);
-    }
-
     @Override
     public void mouseClicked(MouseEvent e) {
         Graphics g = getGraphics();
 
         if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
-            g.drawRect(e.getX(), e.getY(), 30, 30);
+            g.drawOval(e.getX(), e.getY(), 30, 30);
             count++;
         }
 
