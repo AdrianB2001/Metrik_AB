@@ -7,6 +7,7 @@ public class Application extends Canvas implements MouseListener {
     int height = 700;
     int width = 700;
     int count = 0;
+    static TextArea coordinates = new TextArea("Coordinates:", 3, 3, 3);
 
     Application() {
         addMouseListener(this);
@@ -20,10 +21,16 @@ public class Application extends Canvas implements MouseListener {
 
         Application application = new Application();
 
-        Frame frame = new Frame("Metrik Version 1.0");
+        Frame frame = new Frame("Metrik Version 1.2.0");
         frame.setSize(application.width, application.height);
         frame.setVisible(true);
+
+        coordinates.setEditable(false);
+        coordinates.setBounds(application.width / 2 - 40, 40, 100, 35);
+
+        frame.add(coordinates);
         frame.add(application);
+
         menubuild(frame, application);
     }
 
@@ -68,8 +75,10 @@ public class Application extends Canvas implements MouseListener {
         Graphics g = getGraphics();
 
         if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
-            g.drawRect(e.getX(), e.getY(), 30, 30);
+            g.drawOval(e.getX(), e.getY(), 30, 30);
             count++;
+            coordinates.setText("Coordinates:\n" +
+                                "X: " + e.getX() + " / Y: " + e.getY());
         }
 
 
