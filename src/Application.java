@@ -33,7 +33,7 @@ public class Application extends Canvas implements MouseListener {
 
         Application application = new Application();
 
-        Frame frame = new Frame("Metrik Version 1.2.1");
+        Frame frame = new Frame("Metrik Version 1.3");
         frame.setSize(application.width, application.height);
         frame.setVisible(true);
 
@@ -140,7 +140,7 @@ public class Application extends Canvas implements MouseListener {
             if (this.count == 2) {
                 x2 = e.getX();
                 y2 = e.getY();
-
+                g.drawLine(x1 + diameter / 2, y1 + diameter / 2, x2 + diameter / 2, y2 + diameter / 2);
             }
             distance.setText("Distanz: " + distanz());
         }
