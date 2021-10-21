@@ -133,27 +133,26 @@ public class Application extends Canvas implements MouseListener {
             g.drawOval(e.getX(), e.getY(), diameter, diameter);
             count++;
 
-            switch (count) {
-                case 1 -> {
-                    x1 = e.getX();
-                    y1 = e.getY();
-
-                }
-                case 2 -> {
-                    x2 = e.getX();
-                    y2 = e.getY();
-                }
-                case 3 -> {
-                    g.clearRect(0, 0, width, height);
-                    count = 0;
-                }
-                default -> distance.setText("Distance:\n" + distanz());
+            if (this.count == 1) {
+                x1 = e.getX();
+                y1 = e.getY();
             }
+            if (this.count == 2) {
+                x2 = e.getX();
+                y2 = e.getY();
+
+            }
+            distance.setText("Distanz: " + distanz());
+        }
+
+        if (this.count == 3) {
+            g.clearRect(0, 0, this.width, this.height);
+            this.count = 0;
+        }
+
             coordinates.setText("Coordinates:\n" +
                                 "X: " + e.getX() + " / Y: " + e.getY());
         }
-    }
-
 
     @Override
     public void mousePressed(MouseEvent e) {
