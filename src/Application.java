@@ -5,12 +5,19 @@ import java.awt.event.MouseListener;
 
 public class Application extends Canvas implements MouseListener {
 
-    private int height = 700;
-    private int width = 700;
+    private final int height = 700;
+    private final int width = 700;
     private int count = 0;
+
+    private static final TextArea coordinates = new TextArea("Coordinates:", 3, 3, 3);
+    private final PopupMenu popup = new PopupMenu("Radius");
+
     private int diameter = 30;
-    private static TextArea coordinates = new TextArea("Coordinates:", 3, 3, 3);
-    private PopupMenu popup = new PopupMenu("Radius");
+    private int x1 = 0;
+    private int y1 = 0;
+    private int x2 = 0;
+    private int y2 = 0;
+
 
     Application() {
         addMouseListener(this);
@@ -20,32 +27,36 @@ public class Application extends Canvas implements MouseListener {
         setVisible(true);
     }
 
+
     public static void main (String[] args) {
 
         Application application = new Application();
 
-        Frame frame = new Frame("Metrik Version 1.2.0");
+        Frame frame = new Frame("Metrik Version 1.2.2");
         frame.setSize(application.width, application.height);
         frame.setVisible(true);
 
         coordinates.setEditable(false);
         coordinates.setBounds(application.width / 2 - 40, 40, 100, 35);
-
         frame.add(coordinates);
+
         frame.add(application);
 
         menubuild(frame, application);
     }
 
+
     private static void menubuild(Frame frame, Application application){
         MenuBar menu = new MenuBar();
         Menu program = new Menu("Program");
         Menu hintergrund = new Menu("Hintergrund");
+        Menu radius = new Menu("Radius");
 
 
         MenuItem quit = new MenuItem("Quit");
         quit.addActionListener(e -> System.exit(1));
         program.add(quit);
+
 
         MenuItem red = new MenuItem("Red");
         red.addActionListener(e -> application.setBackground(Color.red));
@@ -67,8 +78,6 @@ public class Application extends Canvas implements MouseListener {
         white.addActionListener(e -> application.setBackground(Color.white));
         hintergrund.add(white);
 
-
-        Menu radius = new Menu("Radius");
 
 
         MenuItem radius10 = new MenuItem("10px");
@@ -104,21 +113,30 @@ public class Application extends Canvas implements MouseListener {
     @Override
     public void mouseClicked(MouseEvent e) {
         Graphics g = getGraphics();
-
         if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
             g.drawOval(e.getX(), e.getY(), diameter, diameter);
             count++;
-            coordinates.setText("Coordinates:\n" +
-                                "X: " + e.getX() + " / Y: " + e.getY());
+
+            if (this.count == 1) {
+                x1 = e.getX();
+                y1 = e.getY();
+            }
+            if (this.count == 2) {
+                x2 = e.getX();
+                y2 = e.getY();
+                g.drawLine(x1 + diameter / 2, y1 + diameter / 2, x2 + diameter / 2, y2 + diameter / 2);
+            }
+
         }
 
-
-        if (count == 3) {
-            g.clearRect(0,0, width, height);
-            count = 0;
+        if (this.count == 3) {
+            g.clearRect(0, 0, this.width, this.height);
+            this.count = 0;
         }
+
+        coordinates.setText("Coordinates:\n" +
+                "X: " + e.getX() + " / Y: " + e.getY());
     }
-
 
     @Override
     public void mousePressed(MouseEvent e) {
