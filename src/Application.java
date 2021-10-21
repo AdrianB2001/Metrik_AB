@@ -114,11 +114,17 @@ public class Application extends Canvas implements MouseListener {
         frame.setMenuBar(menu);
     }
 
-    
-    private double distance(int x1, int y1, int x2, int y2) {
-        return Math.sqrt((y2 - y1) * (y2 - y1) + (x2 - x1) * (x2 - x1));
-    }
 
+    public double distanz(){
+        double abstand;
+        double a = 0, b = 0;
+        if(x1>x2) a = x1 - x2;
+        if(x1<x2) a = x2 - x1;
+        if(y1>y2) b = y1 - y2;
+        if(y1<y2) b = y2 - y1;
+        abstand = Math.sqrt((a*a) + (b*b));
+        return abstand;
+    }
 
     @Override
     public void mouseClicked(MouseEvent e) {
@@ -128,21 +134,21 @@ public class Application extends Canvas implements MouseListener {
             count++;
 
             switch (count) {
-                case 0 -> {
+                case 1 -> {
                     x1 = e.getX();
                     y1 = e.getY();
+
                 }
-                case 1 -> {
+                case 2 -> {
                     x2 = e.getX();
                     y2 = e.getY();
                 }
-                case 2 -> distance.setText("Distance:\n" + distance(x1, y1, x2, y2));
                 case 3 -> {
                     g.clearRect(0, 0, width, height);
                     count = 0;
                 }
+                default -> distance.setText("Distance:\n" + distanz());
             }
-
             coordinates.setText("Coordinates:\n" +
                                 "X: " + e.getX() + " / Y: " + e.getY());
         }
