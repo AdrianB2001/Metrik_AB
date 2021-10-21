@@ -4,10 +4,13 @@ import java.awt.event.MouseListener;
 
 
 public class Application extends Canvas implements MouseListener {
-    int height = 700;
-    int width = 700;
-    int count = 0;
-    static TextArea coordinates = new TextArea("Coordinates:", 3, 3, 3);
+
+    private int height = 700;
+    private int width = 700;
+    private int count = 0;
+    private int diameter = 30;
+    private static TextArea coordinates = new TextArea("Coordinates:", 3, 3, 3);
+    private PopupMenu popup = new PopupMenu("Radius");
 
     Application() {
         addMouseListener(this);
@@ -34,10 +37,11 @@ public class Application extends Canvas implements MouseListener {
         menubuild(frame, application);
     }
 
-    public static void menubuild(Frame frame, Application application){
+    private static void menubuild(Frame frame, Application application){
         MenuBar menu = new MenuBar();
         Menu program = new Menu("Program");
         Menu hintergrund = new Menu("Hintergrund");
+
 
         MenuItem quit = new MenuItem("Quit");
         quit.addActionListener(e -> System.exit(1));
@@ -63,11 +67,38 @@ public class Application extends Canvas implements MouseListener {
         white.addActionListener(e -> application.setBackground(Color.white));
         hintergrund.add(white);
 
+
+        Menu radius = new Menu("Radius");
+
+
+        MenuItem radius10 = new MenuItem("10px");
+        radius10.addActionListener(e -> application.diameter = 10);
+        application.popup.add(radius10);
+
+        MenuItem radius20 = new MenuItem("20px");
+        radius20.addActionListener(e -> application.diameter = 20);
+        application.popup.add(radius20);
+
+        MenuItem radius30 = new MenuItem("30px");
+        radius30.addActionListener(e -> application.diameter = 30);
+        application.popup.add(radius30);
+
+        MenuItem radius40 = new MenuItem("40px");
+        radius40.addActionListener(e -> application.diameter = 40);
+        application.popup.add(radius40);
+
+        MenuItem radius50 = new MenuItem("50px");
+        radius50.addActionListener(e -> application.diameter = 50);
+        application.popup.add(radius50);
+
+        radius.add(application.popup);
+
+
         menu.add(program);
         menu.add(hintergrund);
+        menu.add(radius);
         frame.setMenuBar(menu);
     }
-
 
 
     @Override
@@ -75,7 +106,7 @@ public class Application extends Canvas implements MouseListener {
         Graphics g = getGraphics();
 
         if (e.getClickCount() == 2 && e.getButton() == MouseEvent.BUTTON1) {
-            g.drawOval(e.getX(), e.getY(), 30, 30);
+            g.drawOval(e.getX(), e.getY(), diameter, diameter);
             count++;
             coordinates.setText("Coordinates:\n" +
                                 "X: " + e.getX() + " / Y: " + e.getY());
